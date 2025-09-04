@@ -1,0 +1,116 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 25 20% 12%; /* Dark brown background */
+  --foreground: 0 0% 90%; /* Light text */
+  --card: 25 18% 18%; /* Dark brown for cards */
+  --card-foreground: 0 0% 90%;
+  --popover: 25 20% 15%;
+  --popover-foreground: 0 0% 90%;
+  
+  --primary: 220 100% 55%; /* Blue */
+  --primary-foreground: 0 0% 100%;
+  
+  --secondary: 0 85% 55%; /* Red */
+  --secondary-foreground: 0 0% 100%;
+  
+  --destructive: 0 85% 55%; /* Red */
+  --destructive-foreground: 0 0% 100%;
+  
+  --muted: 0 0% 25%; /* Dark gray */
+  --muted-foreground: 0 0% 65%;
+  
+  --accent: 0 0% 40%; /* Gray for accents */
+  --accent-foreground: 0 0% 90%;
+  
+  --border: 0 0% 30%; /* Gray border */
+  --input: 25 15% 20%; /* Dark brown input */
+  --ring: 220 100% 55%; /* Blue ring to match primary */
+  
+  --radius: 0.5rem;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  color: hsl(var(--foreground));
+  background: linear-gradient(135deg, hsl(25, 20%, 12%) 0%, hsl(25, 25%, 15%) 50%, hsl(25, 18%, 10%) 100%);
+  font-feature-settings: "rlig" 1, "calt" 1;
+  min-height: 100vh;
+}
+
+.text-transparent.bg-clip-text {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text { /* Legacy - will be overridden by specific Tailwind gradients */
+  background: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--primary)), hsl(var(--accent)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass-effect {
+  background: hsla(var(--card) / 0.8); /* More opaque for better readability */
+  backdrop-filter: blur(12px) saturate(150%);
+  border: 1px solid hsla(var(--border) / 0.3);
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); } /* Reduced float height */
+}
+
+.animate-pulse-slow {
+  animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.card-hover-sky {
+  transition: all 0.3s ease;
+}
+.card-hover-sky:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 15px 30px hsla(var(--primary) / 0.25); /* Primary color shadow */
+}
+
+
+.pattern-bg {
+  background-image: 
+    radial-gradient(circle at 15% 20%, hsla(var(--primary) / 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 85% 80%, hsla(var(--secondary) / 0.06) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, hsla(var(--accent) / 0.04) 0%, transparent 30%);
+  background-size: 150% 150%; /* Make patterns larger and less dense */
+}
+
+.mobile-menu-overlay {
+  background: hsla(var(--background) / 0.8);
+  backdrop-filter: blur(8px);
+}
+
+/* Custom scrollbar for better theme integration */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary) / 0.6);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.8);
+}
+
