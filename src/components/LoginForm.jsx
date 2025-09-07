@@ -46,17 +46,13 @@ const LoginForm = ({ onLogin, onSwitchToRegister }) => {
     setLoading(true);
 
     try {
-      const { data: user, error: fetchError } = await supabase
-        .from('users')
-        .select('*')
-        .eq('email', formData.email)
-        .single();
+      // Use Supabase Auth for secure authentication
+      const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+        email: formData.email,
+        password: formData.password
+      });
 
-      if (fetchError && fetchError.code !== 'PGRST116') { // PGRST116 means no rows found, which is handled next
-        throw fetchError;
-      }
-      
-      if (!user || user.password !== formData.password) { // Password check (hash in real app)
+      if (authError) {
         toast({
           title: t('error'),
           description: t('invalidEmailOrPassword'),
@@ -64,6 +60,17 @@ const LoginForm = ({ onLogin, onSwitchToRegister }) => {
         });
         setLoading(false);
         return;
+      }
+
+      // Fetch user profile data from the users table
+      const { data: user, error: fetchError } = await supabase
+        .from('users')
+        .select('*')
+        .eq('email', formData.email)
+        .single();
+
+      if (fetchError) {
+        throw fetchError;
       }
       
       authLogin(user); 
